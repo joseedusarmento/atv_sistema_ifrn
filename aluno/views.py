@@ -55,3 +55,9 @@ def index(request):
     return render(request, "aluno/index.html",context)
 
 
+def curso_listar(request):
+    cursos = Curso.objects.all()
+    context = {
+        'cursos': cursos
+    }
+    return render(request, "aluno/curso_listar.html", context)

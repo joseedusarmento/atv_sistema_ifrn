@@ -1,12 +1,12 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from .models import Aluno,Curso,Cidade
-from .forms import AlunoForm
+from .forms import AlunoForm, CidadeForm
 
 def aluno_editar(request,id):
     aluno = get_object_or_404(Aluno,id=id)
    
     if request.method == 'POST':
-        form = AlunoForm(request.POST,instance=aluno)
+        form = AlunoForm(request.POST,request.FILES,instance=aluno)
 
         if form.is_valid():
             form.save()
@@ -25,7 +25,7 @@ def aluno_remover(request, id):
 
 def aluno_criar(request):
     if request.method == 'POST':
-        form = AlunoForm(request.POST)
+        form = AlunoForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
             form = AlunoForm()
@@ -61,3 +61,11 @@ def curso_listar(request):
         'cursos': cursos
     }
     return render(request, "aluno/curso_listar.html", context)
+
+def cidade_criar(request):
+    form = CidadeForm()
+    context= {
+        'form': form
+    }
+ 
+    return render(request, "cidade/form.html",context)

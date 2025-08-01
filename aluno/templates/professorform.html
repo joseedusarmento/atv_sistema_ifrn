@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block center %}
+    <h2>Formulário de Professores</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            {{ form.nome }}
+        </div>
+
+        <div class="mb-3">
+            <label for="cpf" class="form-label">CPF</label>
+            {{ form.cpf }}
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">E-mail</label>
+            {{ form.email }}
+        </div>
+
+        <div class="mb-3">
+            <label for="telefone" class="form-label">Telefone</label>
+            {{ form.telefone }}
+        </div>
+
+        <div class="mb-3">
+            <label for="data_nascimento" class="form-label">Data de Nascimento</label>
+            {{ form.data_nascimento }}
+        </div>
+
+        <div class="mb-3">
+            <label for="especialidade" class="form-label">Especialidade</label>
+            {{ form.especialidade }}
+        </div>
+
+        <div class="mb-3">
+            <label for="salario" class="form-label">Salário</label>
+            {{ form.salario }}
+        </div>
+
+        <div class="mb-3">
+            <label for="data_contratacao" class="form-label">Data de Contratação</label>
+            {{ form.data_contratacao }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.ativo }}
+            <label for="{{ form.ativo.id_for_label }}">Ativo</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+{% endblock %}

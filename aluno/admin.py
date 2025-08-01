@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Aluno, Cidade, Curso
+from .models import Aluno, Cidade, Curso, Professor
 
 @admin.register(Aluno)
 class AlunoAdmin(admin.ModelAdmin):
@@ -24,3 +24,7 @@ class CursoAdmin(admin.ModelAdmin):
 class CidadeAdmin(admin.ModelAdmin):
     list_display = ('nome', 'sigla_estado',)
 
+@admin.register(Professor)
+class ProfessorAdmin(admin.ModelAdmin):
+    list_display = ('nome', 'cpf','email', 'telefone', 'data_nascimento', 'especialidade','salario', 'data_contratacao', 'ativo' )
+    fields = ('nome', 'cpf','email', 'telefone', 'data_nascimento', 'especialidade','salario', 'data_contratacao', 'ativo' )

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block center %}
+  <h2>Lista de Professores</h2>
+
+  <a href="{% url 'professor_criar' %}" class="btn btn-success mb-3">Novo Cadastro</a>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Especialidade</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for professor in professores %}
+        <tr>
+          <td>{{ professor.nome }}</td>
+          <td>{{ professor.email }}</td>
+          <td>{{ professor.especialidade }}</td>
+          <td>
+            <a href="{% url 'professor_editar' id=professor.id %}" class="btn btn-primary btn-sm">Editar</a>
+            <a href="{% url 'professor_remover' id=professor.id %}" class="btn btn-danger btn-sm">Remover</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

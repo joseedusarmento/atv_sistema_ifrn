@@ -15,6 +15,16 @@ class AlunoForm(ModelForm):
             'curso': forms.Select(attrs={'class': 'form-control' }),
             'foto': forms.FileInput(attrs={'class': 'form-control'}),
         }
+
+class CursoForm(ModelForm):
+
+    class Meta:
+        model = Curso
+        fields = '__all__'
+        widgets = {
+            'nome': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
 class CidadeForm(ModelForm):
 
     class Meta:

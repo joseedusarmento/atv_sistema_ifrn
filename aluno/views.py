@@ -7,7 +7,6 @@ def aluno_editar(request,id):
    
     if request.method == 'POST':
         form = AlunoForm(request.POST,request.FILES,instance=aluno)
-
         if form.is_valid():
             form.save()
             return redirect('aluno_listar')
@@ -28,7 +27,7 @@ def aluno_criar(request):
         form = AlunoForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
-            form = AlunoForm()
+            return redirect('aluno_listar')
     else:
         form = AlunoForm()
 
@@ -62,7 +61,42 @@ def curso_listar(request):
     context = {
         'cursos': cursos
     }
-    return render(request, "aluno/curso_listar.html", context)
+    return render(request, "curso/curso_listar.html", context)
+
+def curso_criar(request):
+
+    if request.method == "POST":
+        form = CursoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            form = CursoForm()
+            return redirect("curso_listar")
+    else:
+        form = CursoForm()
+    
+    context= {
+        'form': form
+    }
+
+    return render(request, "curso/form.html",context)
+
+def curso_remover(request, id):
+    curso = get_object_or_404(Curso, id=id)
+    curso.delete()
+    return redirect('curso_listar')
+
+def curso_editar(request,id):
+    curso = get_object_or_404(Curso,id=id)
+   
+    if request.method == 'POST':
+        form = CursoForm(request.POST,request.FILES,instance=curso)
+        if form.is_valid():
+            form.save()
+            return redirect('curso_listar')
+    else:
+        form = CursoForm(instance=curso)
+
+    return render(request,'curso/form.html',{'form':form})
 
 def cidade_criar(request):
 
@@ -98,7 +132,6 @@ def cidade_editar(request,id):
    
     if request.method == 'POST':
         form = CidadeForm(request.POST,request.FILES,instance=cidade)
-
         if form.is_valid():
             form.save()
             return redirect('cidade_listar')
@@ -112,7 +145,7 @@ def professor_listar(request):
     context ={
         'professores': professores
     }
-    return render(request, "professor_listar.html",context)
+    return render(request, "professor/professor_listar.html",context)
 
 def professor_criar(request):
     if request.method == 'POST':
@@ -123,7 +156,7 @@ def professor_criar(request):
     else:
         form = ProfessorForm()
         
-    return render(request, "professorform.html", {'form': form})
+    return render(request, "professor/form.html", {'form': form})
 
 def professor_editar(request,id):
     professor = get_object_or_404(Professor,id=id)
@@ -136,7 +169,7 @@ def professor_editar(request,id):
     else:
         form = ProfessorForm(instance=professor)
 
-    return render(request,'professorform.html',{'form':form})
+    return render(request,'professor/form.html',{'form':form})
 
 def professor_remover(request, id):
     professor = get_object_or_404(Professor, id=id)

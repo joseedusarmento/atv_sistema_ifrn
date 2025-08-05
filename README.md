@@ -9,6 +9,7 @@ Basicamente, foi realizada a implementação da aba Professores, com o CRUD comp
 ## Recursos Utilizados
 
 * Django 4.2.2
+* Pillow 11.3.0
 * Python 3.x
 * SQLite
 * HTML/CSS/Bootstrap

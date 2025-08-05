@@ -2,7 +2,7 @@
 
 Sistema de Matrícula em Django
 
-## Sobre o que foi feito na atividade.
+## Sobre o que foi feito na atividade
 
 Basicamente, foi realizada a implementação da aba Professores, com o CRUD completo. Além disso, organização na pasta dos templates e uma breve atualização nos requirements, para inclusão do Pillow.
 

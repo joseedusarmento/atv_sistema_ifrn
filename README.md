@@ -35,7 +35,7 @@ Sistema completo de gestão acadêmica desenvolvido em Django com sistema de usu
 
 ### 1. Clone o repositório
 ```bash
-git clone https://github.com/joseedusarmento/atv_sistema_ifrn.git
+git clone https://github.com/ErnestoSESB/atv_sistema_ifrn.git
 cd atv_sistema_ifrn
 ```
 
@@ -308,3 +308,4 @@ Desenvolvido para o IFRN
 
 
 Sistema de Gestão Acadêmica - Versão 1.0
+

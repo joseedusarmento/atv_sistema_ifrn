@@ -1,7 +1,9 @@
 from django.shortcuts import render,get_object_or_404,redirect
+from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 
+@login_required
 def aluno_editar(request,id):
     aluno = get_object_or_404(Aluno,id=id)
    
@@ -16,12 +18,14 @@ def aluno_editar(request,id):
     return render(request,'aluno/form.html',{'form':form})
 
 
+@login_required
 def aluno_remover(request, id):
     aluno = get_object_or_404(Aluno, id=id)
     aluno.delete()
-    return redirect('aluno_listar') # procure um url com o nome 'lista_aluno'
+    return redirect('aluno_listar') 
 
 
+@login_required
 def aluno_criar(request):
     if request.method == 'POST':
         form = AlunoForm(request.POST,request.FILES)
@@ -34,6 +38,7 @@ def aluno_criar(request):
     return render(request, "aluno/form.html", {'form': form})
 
 
+@login_required
 def aluno_listar(request):
     alunos = Aluno.objects.all()
     context ={
@@ -56,6 +61,7 @@ def index(request):
     return render(request, "aluno/index.html",context)
 
 
+@login_required
 def curso_listar(request):
     cursos = Curso.objects.all()
     context = {
@@ -63,6 +69,7 @@ def curso_listar(request):
     }
     return render(request, "curso/curso_listar.html", context)
 
+@login_required
 def curso_criar(request):
 
     if request.method == "POST":
@@ -80,11 +87,13 @@ def curso_criar(request):
 
     return render(request, "curso/form.html",context)
 
+@login_required
 def curso_remover(request, id):
     curso = get_object_or_404(Curso, id=id)
     curso.delete()
     return redirect('curso_listar')
 
+@login_required
 def curso_editar(request,id):
     curso = get_object_or_404(Curso,id=id)
    
@@ -98,6 +107,7 @@ def curso_editar(request,id):
 
     return render(request,'curso/form.html',{'form':form})
 
+@login_required
 def cidade_criar(request):
 
     if request.method == "POST":
@@ -115,6 +125,7 @@ def cidade_criar(request):
 
     return render(request, "cidade/form.html",context)
 
+@login_required
 def cidade_listar(request):
     cidades = Cidade.objects.all()
     context = {
@@ -122,11 +133,13 @@ def cidade_listar(request):
     }
     return render(request, "cidade/cidade_listar.html", context)
 
+@login_required
 def cidade_remover(request, id):
     cidade = get_object_or_404(Cidade, id=id)
     cidade.delete()
     return redirect('cidade_listar')
 
+@login_required
 def cidade_editar(request,id):
     cidade = get_object_or_404(Cidade,id=id)
    
@@ -140,6 +153,7 @@ def cidade_editar(request,id):
 
     return render(request,'cidade/form.html',{'form':form})
 
+@login_required
 def professor_listar(request):
     professores = Professor.objects.all()
     context ={
@@ -147,6 +161,7 @@ def professor_listar(request):
     }
     return render(request, "professor/professor_listar.html",context)
 
+@login_required
 def professor_criar(request):
     if request.method == 'POST':
         form = ProfessorForm(request.POST)
@@ -158,6 +173,7 @@ def professor_criar(request):
         
     return render(request, "professor/form.html", {'form': form})
 
+@login_required
 def professor_editar(request,id):
     professor = get_object_or_404(Professor,id=id)
    
@@ -171,6 +187,7 @@ def professor_editar(request,id):
 
     return render(request,'professor/form.html',{'form':form})
 
+@login_required
 def professor_remover(request, id):
     professor = get_object_or_404(Professor, id=id)
     professor.delete()

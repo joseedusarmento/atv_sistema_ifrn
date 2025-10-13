@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block center %}
+    {% if is_staff_dashboard %}
+        <!-- Dashboard para Administradores -->
+        <h2>Dashboard Administrativo</h2>
+        <p class="text-muted">Visão geral do sistema de usuários</p>
+        
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card bg-primary text-white">
+                    <div class="card-body">
+                        <h3>{{ total_usuarios }}</h3>
+                        <p>Total de Usuários</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card bg-success text-white">
+                    <div class="card-body">
+                        <h3>{{ usuarios_ativos }}</h3>
+                        <p>Usuários Ativos</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card bg-warning text-white">
+                    <div class="card-body">
+                        <h3>{{ usuarios_inativos }}</h3>
+                        <p>Usuários Inativos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h5>Ações de Gerenciamento</h5>
+            </div>
+            <div class="card-body">
+                <a href="{% url 'listar_usuarios' %}" class="btn btn-primary me-2">Gerenciar Usuários</a>
+                <a href="/admin/" class="btn btn-secondary" target="_blank">Painel Admin Django</a>
+            </div>
+        </div>
+        
+    {% else %}
+        <!-- Dashboard para Usuários Comuns -->
+        <h2>Meu Dashboard</h2>
+        <p class="text-muted">Bem-vindo, {{ usuario.get_nome_completo }}!</p>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        {% if usuario.foto_perfil %}
+                            <img src="{{ usuario.foto_perfil.url }}" alt="Foto de Perfil" 
+                                 class="rounded-circle mb-3" style="width: 100px; height: 100px; object-fit: cover;">
+                        {% else %}
+                            <div class="bg-secondary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
+                                 style="width: 100px; height: 100px;">
+                                <span style="font-size: 40px; color: white;">👤</span>
+                            </div>
+                        {% endif %}
+                        
+                        <h5>{{ usuario.get_nome_completo }}</h5>
+                        <p class="text-muted">@{{ usuario.username }}</p>
+                        
+                        <a href="{% url 'perfil_usuario' %}" class="btn btn-primary btn-sm">Ver Perfil</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Ações Rápidas</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <a href="{% url 'editar_perfil' %}" class="btn btn-outline-primary w-100">Editar Perfil</a>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <a href="{% url 'index' %}" class="btn btn-outline-success w-100">Página Inicial</a>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <a href="{% url 'aluno_listar' %}" class="btn btn-outline-info w-100">Ver Alunos</a>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <a href="{% url 'professor_listar' %}" class="btn btn-outline-warning w-100">Ver Professores</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5>Informações da Conta</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>E-mail:</strong> {{ usuario.email|default:"Não informado" }}</p>
+                                <p><strong>Membro desde:</strong> {{ usuario.date_joined|date:"d/m/Y" }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Última atualização:</strong> {{ usuario.data_atualizacao|date:"d/m/Y H:i" }}</p>
+                                <p><strong>Status:</strong> 
+                                    {% if usuario.is_active %}
+                                        <span class="badge bg-success">Ativo</span>
+                                    {% else %}
+                                        <span class="badge bg-danger">Inativo</span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

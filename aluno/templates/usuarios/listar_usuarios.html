@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block center %}
+    <h2>Lista de Usuários</h2>
+
+    <a href="{% url 'usuario_registro' %}" class="btn btn-success mb-3">Novo Usuário</a>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if usuarios %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Usuário</th>
+                <th>Nome Completo</th>
+                <th>E-mail</th>
+                <th>CPF</th>
+                <th>Status</th>
+                <th>Cadastrado em</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+            <tr>
+                <td>
+                    <strong>{{ usuario.username }}</strong>
+                    {% if usuario.is_staff %}
+                        <span class="badge bg-primary ms-1">Admin</span>
+                    {% endif %}
+                    {% if usuario.is_superuser %}
+                        <span class="badge bg-danger ms-1">Super</span>
+                    {% endif %}
+                </td>
+                <td>{{ usuario.get_nome_completo }}</td>
+                <td>{{ usuario.email|default:"-" }}</td>
+                <td>{{ usuario.cpf|default:"-" }}</td>
+                <td>
+                    {% if usuario.is_active %}
+                        <span class="badge bg-success">Ativo</span>
+                    {% else %}
+                        <span class="badge bg-danger">Inativo</span>
+                    {% endif %}
+                </td>
+                <td>{{ usuario.date_joined|date:"d/m/Y" }}</td>
+                <td>
+                    <a href="{% url 'detalhes_usuario' usuario.id %}" class="btn btn-primary btn-sm">Ver</a>
+                    <a href="{% url 'editar_usuario' usuario.id %}" class="btn btn-warning btn-sm">Editar</a>
+                    {% if usuario != user %}
+                    <a href="{% url 'ativar_desativar_usuario' usuario.id %}" 
+                       class="btn btn-{% if usuario.is_active %}danger{% else %}success{% endif %} btn-sm"
+                       onclick="return confirm('Tem certeza?')">
+                        {% if usuario.is_active %}Desativar{% else %}Ativar{% endif %}
+                    </a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <!-- Paginação -->
+    {% if usuarios.has_other_pages %}
+    <nav aria-label="Navegação de páginas">
+        <ul class="pagination justify-content-center">
+            {% if usuarios.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">Primeira</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ usuarios.previous_page_number }}">Anterior</a>
+                </li>
+            {% endif %}
+            
+            <li class="page-item active">
+                <span class="page-link">
+                    Página {{ usuarios.number }} de {{ usuarios.paginator.num_pages }}
+                </span>
+            </li>
+            
+            {% if usuarios.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ usuarios.next_page_number }}">Próxima</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ usuarios.paginator.num_pages }}">Última</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+    
+    {% else %}
+    <div class="text-center py-4">
+        <p class="text-muted">Nenhum usuário encontrado.</p>
+        <a href="{% url 'usuario_registro' %}" class="btn btn-primary">Criar Primeiro Usuário</a>
+    </div>
+    {% endif %}
+{% endblock %}

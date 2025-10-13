@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block center %}
+    <h2>Meu Perfil</h2>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    {% if usuario.foto_perfil %}
+                        <img src="{{ usuario.foto_perfil.url }}" alt="Foto de Perfil" 
+                             class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                    {% else %}
+                        <div class="bg-secondary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
+                             style="width: 150px; height: 150px;">
+                            <span style="font-size: 60px; color: white;">👤</span>
+                        </div>
+                    {% endif %}
+                    
+                    <h5>{{ usuario.get_nome_completo }}</h5>
+                    <p class="text-muted">@{{ usuario.username }}</p>
+                    
+                    <a href="{% url 'editar_perfil' %}" class="btn btn-primary">Editar Perfil</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Informações Pessoais</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>E-mail:</strong> {{ usuario.email|default:"Não informado" }}</p>
+                            <p><strong>CPF:</strong> {{ usuario.cpf|default:"Não informado" }}</p>
+                            <p><strong>Telefone:</strong> {{ usuario.telefone|default:"Não informado" }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Data de Nascimento:</strong> {{ usuario.data_nascimento|date:"d/m/Y"|default:"Não informado" }}</p>
+                            <p><strong>Membro desde:</strong> {{ usuario.date_joined|date:"d/m/Y" }}</p>
+                            <p><strong>Status:</strong> 
+                                {% if usuario.is_active %}
+                                    <span class="badge bg-success">Ativo</span>
+                                {% else %}
+                                    <span class="badge bg-danger">Inativo</span>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            {% if usuario.endereco or usuario.cidade or usuario.estado or usuario.cep %}
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5>Endereço</h5>
+                </div>
+                <div class="card-body">
+                    <p>{{ usuario.get_endereco_completo }}</p>
+                </div>
+            </div>
+            {% endif %}
+            
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5>Ações Rápidas</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-2">
+                            <a href="{% url 'index' %}" class="btn btn-outline-primary w-100">Página Inicial</a>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <a href="{% url 'dashboard_usuario' %}" class="btn btn-outline-success w-100">Dashboard</a>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <a href="{% url 'aluno_listar' %}" class="btn btn-outline-info w-100">Ver Alunos</a>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <a href="{% url 'professor_listar' %}" class="btn btn-outline-warning w-100">Ver Professores</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

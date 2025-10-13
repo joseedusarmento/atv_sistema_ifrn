@@ -67,6 +67,8 @@ python manage.py createsuperuser
 ```
 **Nota**: O CPF é opcional para superusuários. Você pode deixar em branco durante a criação.
 
+### 5.1 Há um superusuário pré-definido chamado teste, sendo a senha teste123
+
 ### 6. Execute o servidor
 ```bash
 python manage.py runserver
@@ -303,5 +305,6 @@ Para dúvidas ou problemas:
 ---
 
 Desenvolvido para o IFRN
+
 
 Sistema de Gestão Acadêmica - Versão 1.0

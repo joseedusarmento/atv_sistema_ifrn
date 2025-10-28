@@ -22,11 +22,12 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',index,name='index'),
-    path('aluno/',aluno_criar,name='aluno_criar'),
-    path('aluno/editar/<int:id>/',aluno_editar, name='aluno_editar'),
-    path('aluno/remover/<int:id>/',aluno_remover,name='aluno_remover'),
-    path('aluno/listar/',aluno_listar,name='aluno_listar'),
+    path('',index, name='index'),
+    path('aluno/', AlunoListView.as_view(), name='alunos_list'),
+    path('aluno/<int:id>/',AlunoDetailView.as_view(), name='aluno_detail'),
+    path('aluno/novo/', AlunoCreateView.as_view(), name='aluno_create'),
+    path('aluno/<int:id>/editar/', AlunoUpdateView.as_view(), name='aluno_update'),
+    path('aluno/<int:id>/excluir/', AlunoDeleteView.as_view(), name='aluno_delete'),
     path('curso/listar/', curso_listar, name='curso_listar'),
     path('curso/criar/', curso_criar, name='curso_criar'),
     path('curso/remover/<int:id>/',curso_remover,name='curso_remover'),

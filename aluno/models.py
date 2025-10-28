@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.
 class Cidade(models.Model):
     nome = models.CharField(max_length=100)
     sigla_estado = models.CharField(max_length=2)
@@ -20,7 +19,6 @@ class Aluno(models.Model):
     email = models.EmailField()
     cidade = models.ForeignKey(Cidade,on_delete=models.CASCADE)
     curso = models.ForeignKey(Curso,on_delete=models.CASCADE)
-    foto = models.ImageField(upload_to='fotos_alunos/', blank=True, null=True)
 
 class Professor(models.Model):
     nome = models.CharField(max_length=100)

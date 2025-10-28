@@ -1,46 +1,37 @@
 from django.shortcuts import render,get_object_or_404,redirect
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 from .models import *
 from .forms import *
 
-def aluno_editar(request,id):
-    aluno = get_object_or_404(Aluno,id=id)
-   
-    if request.method == 'POST':
-        form = AlunoForm(request.POST,request.FILES,instance=aluno)
-        if form.is_valid():
-            form.save()
-            return redirect('aluno_listar')
-    else:
-        form = AlunoForm(instance=aluno)
+# CRUD com CBV em Aluno
 
-    return render(request,'aluno/form.html',{'form':form})
+class AlunoListView(ListView):
+    model = Aluno
+    template_name = 'aluno/alunos.html'
+    context_object_name = 'alunos'
 
+class AlunoDetailView(DetailView):
+    model = Aluno
+    template_name = 'aluno/detalhe.html'
+    context_object_name = 'aluno'
+    
+class AlunoCreateView(CreateView):
+    model = Aluno
+    form_class = AlunoForm
+    template_name = 'aluno/form.html'
+    success_url = reverse_lazy('alunos_list')
 
-def aluno_remover(request, id):
-    aluno = get_object_or_404(Aluno, id=id)
-    aluno.delete()
-    return redirect('aluno_listar') # procure um url com o nome 'lista_aluno'
+class AlunoUpdateView(UpdateView):
+    model = Aluno
+    form_class = AlunoForm
+    template_name = 'aluno/form.html'
+    success_url = reverse_lazy('alunos_list')
 
-
-def aluno_criar(request):
-    if request.method == 'POST':
-        form = AlunoForm(request.POST,request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('aluno_listar')
-    else:
-        form = AlunoForm()
-
-    return render(request, "aluno/form.html", {'form': form})
-
-
-def aluno_listar(request):
-    alunos = Aluno.objects.all()
-    context ={
-        'alunos':alunos
-    }
-    return render(request, "aluno/alunos.html",context)
-
+class AlunoDeleteView(DeleteView):
+    model = Aluno
+    template_name = 'aluno/confirm_delete.html'
+    success_url = reverse_lazy('alunos_list')
 
 def index(request):
     total_alunos = Aluno.objects.count()

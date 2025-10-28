@@ -1,0 +1,5 @@
+<h3>Deseja realmente exlcuir "{{ object }}"?</h3>
+<form method="post">{% csrf_token %}
+    <button type="submit">Exlcuir</button>
+    <a href="{% url 'alunos_list' %}">Cancelar</a>
+</form>

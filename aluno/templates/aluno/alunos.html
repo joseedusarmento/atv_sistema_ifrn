@@ -9,24 +9,22 @@
     <thead>
       <tr>
         <th>Nome</th>
-        <th>Email</th>
-        <th>Cidade</th>
         <th>Curso</th>
         <th>Ações</th>
       </tr>
     </thead>
     <tbody>
+      {% for aluno in alunos %}
       <tr>
         <td>{{ aluno.nome_aluno }}</td>
-        <td>{{ aluno.email }}</td>
-        <td>{{ aluno.cidade.nome }}</td>
         <td>{{ aluno.curso.nome }}</td>
         <td>
-          <a href="{% url 'aluno_update' id = aluno.id %}" class="btn btn-primary btn-sm">Editar</a>
-          <a href="{% url 'aluno_detail' id = aluno.id %}" class="btn btn-success btn-sm">Detalhes</a>
-          <a href="{% url 'aluno_delete' id = aluno.id %}" class="btn btn-danger btn-sm">Remover</a>
+          <a href="{% url 'aluno_update' pk=aluno.id %}" class="btn btn-primary btn-sm">Editar</a>
+          <a href="{% url 'aluno_detail' pk=aluno.id %}" class="btn btn-success btn-sm">Detalhes</a>
+          <a href="{% url 'aluno_delete' pk=aluno.id %}" class="btn btn-danger btn-sm">Remover</a>
         </td>
       </tr>
+      {% endfor %}
     </tbody>
   </table>
 {% endblock %}

@@ -1,3 +1,25 @@
-<td>{{ aluno.foto }}</td>
-<th>{{ aluno.nome_aluno }}</th>
-<th>{{ aluno.email }}</th>
+{% extends 'base.html' %}
+
+{% block center %}
+  <h2>Detalhes do Aluno</h2>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Curso</th>
+        <th>Email</th>
+        <th>Cidade</th>
+        <th>Endereço</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ aluno.nome_aluno }}</td>
+        <td>{{ aluno.curso.nome }}</td>
+        <td>{{ aluno.email }}</td>
+        <td>{{ aluno.cidade.nome }}</td>
+        <td>{{ aluno.endereco }}</td>
+      </tr>
+    </tbody>
+  </table>
+{% endblock %}

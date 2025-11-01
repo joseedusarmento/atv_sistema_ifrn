@@ -1,5 +1,33 @@
-<h3>Deseja realmente exlcuir "{{ object }}"?</h3>
-<form method="post">{% csrf_token %}
-    <button type="submit">Exlcuir</button>
-    <a href="{% url 'alunos_list' %}">Cancelar</a>
-</form>
+{% extends "base.html" %}
+
+{% block center %}
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-danger text-white">
+            <h4 class="mb-0">Confirmar Exclusão</h4>
+        </div>
+
+        <div class="card-body">
+            <p class="fs-5">
+                Tem certeza de que deseja excluir o aluno 
+                <strong>{{ object.nome_aluno }}</strong>?
+            </p>
+
+            <p class="text-muted">
+                Esta ação não pode ser desfeita.
+            </p>
+
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger me-2">
+                    Excluir
+                </button>
+
+                <a class="btn btn-secondary" href="{% url 'alunos_list' %}">
+                    Cancelar
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

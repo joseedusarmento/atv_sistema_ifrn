@@ -18,7 +18,6 @@ O sistema permite cadastrar, listar, visualizar, editar e excluir:
 - HTML / CSS
 - SQLite (padrão do Django)
 
----
 
 # 📌 **Rotas principais do sistema**
 
@@ -95,6 +94,8 @@ atv_sistema_ifrn/
 │   └── base.html
 └── manage.py
 
+---
+```
 ## 📸 Telas do Sistema
 
 ### 🏠 Dashboard
